@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Mail, Phone, Github, Award, Users, Briefcase, BarChart2, Heart, Calendar, CheckCircle, Rocket } from 'lucide-react';
+import { Linkedin, Mail, Phone, Github, Award, Users, Briefcase, BarChart2, Heart, CheckCircle, Rocket, ArrowDownToLine, Plus as LucidePlus, Info as LucideInfo } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 const CONTACTS = [
@@ -332,16 +331,16 @@ const LandingPage = () => {
                   </CardHeader>
                   <CardContent>
                     <div className='flex flex-col gap-6'>
-                      {EDUCATION.map((ed, idx) => (
+                      {EDUCATION.map((ed) => (
                         <div key={ed.type + ed.place} className='pb-2 border-b last:border-b-0'>
                           <div className='flex items-center justify-between'>
                             <span className='font-semibold'>{ed.type}</span>
                             <span className='text-xs text-gray-500'>{ed.duration}</span>
                           </div>
                           <div className='text-gray-700 text-sm'>{ed.place}</div>
-                          {Array.isArray((ed as any).grades) && (
+                          {Array.isArray(ed.grades) && (
                             <div className='grid grid-cols-2 gap-x-6 gap-y-1 mt-1'>
-                              {(ed as any).grades.map((g: { subject: string; grade: string }) => (
+                              {ed.grades.map((g: { subject: string; grade: string }) => (
                                 <div key={g.subject} className='flex justify-between'>
                                   <span>{g.subject}</span>
                                   <Badge variant='secondary'>{g.grade}</Badge>
@@ -350,11 +349,11 @@ const LandingPage = () => {
                             </div>
                           )}
                           {'topic' in ed && (
-                            <div className='mt-1 italic text-xs text-gray-600'>" {(ed as any).topic} "</div>
+                            <div className='mt-1 italic text-xs text-gray-600'>&quot; {ed.topic} &quot;</div>
                           )}
                           {'grade' in ed && (
                             <div className='mt-1'>
-                              <Badge variant='secondary'>{(ed as any).grade}</Badge>
+                              <Badge variant='secondary'>{ed.grade}</Badge>
                             </div>
                           )}
                         </div>
@@ -449,7 +448,7 @@ const LandingPage = () => {
               <Accordion type='single' collapsible className='w-full max-w-2xl mx-auto'>
                 <AccordionItem value='references'>
                   <AccordionTrigger>
-                    <Info className='w-4 h-4 mr-2 text-blue-700' />
+                    <LucideInfo className='w-4 h-4 mr-2 text-blue-700' />
                     References
                   </AccordionTrigger>
                   <AccordionContent>
@@ -483,8 +482,8 @@ const LandingPage = () => {
 function DownloadIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width='16' height='16' viewBox='0 0 16 16' fill='none' {...props}>
-      <ArrowRight x1='8' y1='4' x2='8' y2='12' stroke='currentColor' strokeWidth='2' />
-      <Plus x1='8' y1='12' x2='8' y2='12' stroke='currentColor' strokeWidth='2' />
+  <ArrowDownToLine x1='8' y1='4' x2='8' y2='12' stroke='currentColor' strokeWidth='2' />
+  <LucidePlus x1='8' y1='12' x2='8' y2='12' stroke='currentColor' strokeWidth='2' />
     </svg>
   );
 }
